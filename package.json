@@ -1,0 +1,21 @@
+{
+  "name": "aoc-2024",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "solve": "ts-node src/solve.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@types/node": "^22.10.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2",
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "@types/yargs": "^17.0.33"
+  }
+}

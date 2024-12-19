@@ -11,23 +11,9 @@ export default class Day02 extends Solution {
     super('02', 'Red-Nosed Reports')
   }
 
-  protected partOne(input: string): SolutionOutput {
-    const reports = getReports(input)
+  protected partOne = (input: string): SolutionOutput => getReports(input).filter(isReportSafe).length
 
-    let safeCount = 0
-
-    for (const report of reports) {
-      const isSafe = isReportSafe(report)
-
-      if (isReportSafe(report)) safeCount++
-    }
-
-    return safeCount
-  }
-
-  protected partTwo(input: string): SolutionOutput {
-    return undefined
-  }
+  protected partTwo = (input: string): SolutionOutput => getReports(input).filter(isReportSafeWithLevelDampener).length
 }
 
 const getReports = (input: string): number[][] =>
@@ -57,15 +43,22 @@ const isReportSafe = (report: number[]): boolean => {
 
     const direction = getDirection(num1, num2)
 
-    if (direction === DIRECTION.SAME) return false
+    if (!initialDirection) initialDirection = direction
 
-    if (!initialDirection) {
-      initialDirection = direction
-      continue
-    }
+    if (direction === DIRECTION.SAME) return false
 
     if (direction !== initialDirection) return false
   }
 
   return true
+}
+
+const isReportSafeWithLevelDampener = (report: number[]): boolean => {
+  if (isReportSafe(report)) return true
+
+  for (let i = 0; i < report.length; i++) {
+    if (isReportSafe([...report.slice(0, i), ...report.slice(i + 1)])) return true
+  }
+
+  return false
 }
